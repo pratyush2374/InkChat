@@ -9,7 +9,6 @@ from langchain_qdrant import QdrantVectorStore
 from qdrant_client import QdrantClient
 
 load_dotenv()
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
 QDRANT_ENDPOINT = os.getenv("QDRANT_ENDPOINT")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")

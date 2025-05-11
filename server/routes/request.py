@@ -1,8 +1,7 @@
 import time
 from fastapi import APIRouter, Request, UploadFile, File, HTTPException, status
 from pydantic import BaseModel
-from controllers import create_embeddings
-from controllers import fetch_answer
+from controllers import create_embeddings, fetch_answer, delete_collection
 from configs import limiter
 import os
 import math
@@ -70,4 +69,17 @@ def upload_pdf(request: Request, data: Query):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Some Error Occured",
+        )
+
+
+@router.delete("/delete/{file_name}")
+@limiter.limit("2/60minute")
+def delete_pdf(request: Request, file_name: str):
+    try:
+        return delete_collection(file_name)
+    except Exception as e:
+        print(e)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Some Error Occured while deleting collection",
         )

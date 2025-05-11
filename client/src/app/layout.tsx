@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-
+import { Toaster } from "sonner";
 const montserrat = Montserrat({
     subsets: ["latin"],
     weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -21,6 +21,7 @@ export default function RootLayout({
         <html lang="en">
             <body className={`${montserrat.className} antialiased`}>
                 {children}
+                <Toaster position="bottom-center" richColors />
             </body>
         </html>
     );
