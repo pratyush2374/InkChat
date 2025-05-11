@@ -16,7 +16,7 @@ app.state.limiter = limiter
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://inkchat.vercel.app", "http://localhost:3000"],
+    allow_origins=["https://ink-chat.vercel.app", "http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
