@@ -8,5 +8,5 @@
 .venv/
 **/.venv/
 
-
 __pycache__
+uploaded_pdfs

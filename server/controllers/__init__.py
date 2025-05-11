@@ -1,1 +1,1 @@
-from .fetch import fetch_answer
+from .injection import create_embeddings
