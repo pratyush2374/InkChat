@@ -2,12 +2,12 @@ import time
 from fastapi import APIRouter, Request, UploadFile, File, HTTPException, status
 from pydantic import BaseModel
 from controllers import create_embeddings
-
-# from controllers import fetch_answer
+from controllers import fetch_answer
 from configs import limiter
 import os
 import math
 import shutil
+
 
 router = APIRouter(
     prefix="/api",
@@ -50,6 +50,23 @@ def upload_pdf(request: Request, file: UploadFile = File(...)):
             return {"message": "PDF upload failed."}
     except:
         os.remove(file_location)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Some Error Occured",
+        )
+
+
+class Query(BaseModel):
+    question: str
+    file_name: str
+
+
+@router.post("/query")
+@limiter.limit("7/60minute")
+def upload_pdf(request: Request, data: Query):
+    try:
+        return fetch_answer(data.question, data.file_name)
+    except:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Some Error Occured",
